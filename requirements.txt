@@ -1,0 +1,6 @@
+bcrypt==3.2.0
+Flask==2.0.2
+Flask-Cors==3.0.10
+markdown==3.3.4
+python-decouple==3.5
+requests==2.26.0
