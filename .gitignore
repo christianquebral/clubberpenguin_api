@@ -1,3 +1,5 @@
 .env
 hashing.py
 cert/
+__pycache__/
+app/hash.py
