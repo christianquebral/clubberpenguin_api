@@ -6,15 +6,16 @@ Base = declarative_base()
 
 
 class Game(Base):
-    __tablename__ = "games"
+    __tablename__ = "fact_games"
     id = Column(Integer, primary_key=True)
     player_id = Column(Integer, nullable=False)
     player_score = Column(Integer, nullable=False)
     game_time = Column(Float, nullable=False)
+    created_date = Column(DateTime, nullable=False)
 
 
 class PlayerDetail(Base):
-    __tablename__ = "player_details"
+    __tablename__ = "dim_player_details"
     id = Column(Integer, primary_key=True)
     player_name = Column(Text, nullable=False)
     password_hash = Column(Text, nullable=False)
@@ -22,24 +23,26 @@ class PlayerDetail(Base):
 
 
 class PlayerState(Base):
-    __tablename__ = "player_states"
+    __tablename__ = "dim_player_states"
     id = Column(Integer, primary_key=True)
     player_id = Column(Integer, nullable=False)
     player_name = Column(Text, nullable=False)
     head_equipped = Column(Text, nullable=False)
+    created_date = Column(DateTime, nullable=False)
+    updated_date = Column(DateTime, nullable=True)
 
 
 class StoreItem(Base):
-    __tablename__ = "store_items"
+    __tablename__ = "dim_store_items"
     id = Column(Integer, primary_key=True)
     item_name = Column(Text, nullable=False)
     item_type = Column(Text, nullable=False)
     item_price = Column(Integer, nullable=False)
-
+    created_date = Column(DateTime, nullable=False)
 
 class Purchase(Base):
-    __tablename__ = "purchases"
+    __tablename__ = "fact_purchases"
     id = Column(Integer, primary_key=True)
     player_id = Column(Integer, nullable=False)
-    item_name = Column(Text, nullable=False)
-    item_price = Column(Text, nullable=False)
+    item_id = Column(Text, nullable=False)
+    created_date = Column(DateTime, nullable=False)
