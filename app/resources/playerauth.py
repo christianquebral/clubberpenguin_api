@@ -1,24 +1,13 @@
 import bcrypt
 import requests
-from datetime import datetime
-from decouple import config
-from http import HTTPStatus
 
+from datetime import datetime
 from flask import request
 from flask_restful import Resource
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 from hash import hash_password, check_password
-from models import Base, PlayerDetail
-
-Session = sessionmaker()
-engine = create_engine(config("URI"))
-Base.metadata.create_all(bind=engine)
-Session.configure(bind=engine)
-
-session = Session()
-session.commit()
+from models import PlayerDetail
+from session import session
 
 
 class PlayerAuth(Resource):
@@ -64,7 +53,6 @@ class PlayerAuth(Resource):
             }, 409
         else:
             _hash = hash_password(password)
-            print(_hash)
             session.add(
                 PlayerDetail(
                     player_name=player, password_hash=_hash, created_date=datetime.now()
@@ -73,4 +61,8 @@ class PlayerAuth(Resource):
 
             session.commit()
 
-            return {"success": True, "message": "Player created", "data": {}}, 201
+            return {
+                "success": True,
+                "message": "Player created", 
+                "data": {}
+            }, 201
