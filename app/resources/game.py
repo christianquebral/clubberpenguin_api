@@ -23,27 +23,31 @@ class Games(Resource):
             data = []
             for row in result:
                 record = {
-                    'game_id': row.id, 
-                    'player_id': row.player_id, 
-                    'player_name': row.player.player_name,
-                    'player_score': row.player_score, 
-                    'created_date': str(row.created_date) 
+                    "game_id": row.id,
+                    "player_id": row.player_id,
+                    "player_name": row.player.player_name,
+                    "player_score": row.player_score,
+                    "created_date": str(row.created_date),
                 }
                 data.append(record)
 
             return {
-                'status': True,
-                'message': 'Successfully retrieved last 50 rows of game data',
-                'data': data
+                "success": True,
+                "message": "Successfully retrieved last 50 rows of game data",
+                "data": data,
             }, 200
 
         else:
-            return 400
+            return {
+                "success": False,
+                "message": "Unable to access game data",
+                "data": {},
+            }, 400
 
     def post(self):
-        player_id = request.args['playerid']
-        player_score = request.args['playerscore']
-        game_time = request.args['gametime']
+        player_id = request.args["playerid"]
+        player_score = request.args["playerscore"]
+        game_time = request.args["gametime"]
         created_date = datetime.now()
 
         session.add(
@@ -57,15 +61,14 @@ class Games(Resource):
         session.commit()
 
         data = {
-            'player_id':player_id,
-            'player_score':player_score,
-            'game_time':game_time,
-            'created_date:':str(created_date)
+            "player_id": player_id,
+            "player_score": player_score,
+            "game_time": game_time,
+            "created_date:": str(created_date),
         }
 
-
         return {
-            'status': True,
-            'message': 'Successfully posted game data',
-            'data': data
+            "success": True,
+            "message": "Successfully posted game data",
+            "data": data,
         }, 201

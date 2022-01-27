@@ -61,8 +61,4 @@ class PlayerAuth(Resource):
 
             session.commit()
 
-            return {
-                "success": True,
-                "message": "Player created", 
-                "data": {}
-            }, 201
+            return {"success": True, "message": "Player created", "data": {}}, 201
