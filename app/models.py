@@ -31,8 +31,8 @@ class PlayerState(Base):
     player_id = Column(Integer, nullable=False)
     player_name = Column(Text, nullable=False)
     head_equipped = Column(Text, nullable=False)
-    created_date = Column(DateTime, nullable=False)
-    updated_date = Column(DateTime, nullable=True)
+    torso_equipped = Column(Text, nullable=False)
+    date_modified = Column(DateTime, nullable=True)
 
 
 class StoreItem(Base):

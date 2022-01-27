@@ -40,9 +40,9 @@ class Games(Resource):
         else:
             return {
                 "success": False,
-                "message": "Unable to access game data",
+                "message": "Unable to access game data at this time",
                 "data": {},
-            }, 400
+            }, 503
 
     def post(self):
         player_id = request.args["playerid"]
