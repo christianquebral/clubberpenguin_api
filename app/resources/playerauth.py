@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import request
 from flask_restful import Resource
 
-from hash import hash_password, check_password
+from utils import hash_password, check_password, require_key
 from models import PlayerDetail
 from session import session
 
@@ -15,7 +15,7 @@ class PlayerAuth(Resource):
         player = request.args["playername"].upper()
         password = request.args["password"]
 
-        query = session.query(PlayerDetail).filter_by(player_name=player)
+        query = session.query(PlayerDetail).filter_by(player_name=player)           
 
         result = query.first()
 
@@ -24,9 +24,9 @@ class PlayerAuth(Resource):
                 password, result.password_hash
             ):
                 return {
-                    "success": True,
+                    "success": True,    
                     "message": "Player logged in successfully",
-                    "data": {},
+                    "data": {'player_id':result.id},
                 }, 202
             else:
                 return {
@@ -37,6 +37,7 @@ class PlayerAuth(Resource):
         else:
             return {"success": False, "message": "Player not found", "data": {}}, 404
 
+    @require_key
     def post(self):
         player = request.args["playername"].upper()
         password = request.args["password"]
@@ -59,6 +60,9 @@ class PlayerAuth(Resource):
                 )
             )
 
+            id_query = session.query(PlayerDetail).filter_by(player_name=player)
+            id_result = id_query.first().id
+
             session.commit()
 
-            return {"success": True, "message": "Player created", "data": {}}, 201
+            return {"success": True, "message": "Player created", "data": {'player_id':id_result}}, 201

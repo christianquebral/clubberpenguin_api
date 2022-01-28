@@ -66,3 +66,11 @@ class Purchase(Base):
 
     player = relationship("PlayerDetail", back_populates="purchases")
     store_item = relationship("StoreItem", back_populates="purchases")
+
+
+class APIAuth(Base):
+    __tablename__ = "api_auth"
+    id = Column(Integer, primary_key=True)
+    api_key = Column(Text, nullable=False)
+    created_date = Column(DateTime, nullable=False)
+    expiration_date = Column(Date, nullable=False)

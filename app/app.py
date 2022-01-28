@@ -1,3 +1,4 @@
+from decouple import config
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Resource, Api
@@ -17,7 +18,7 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-if ENV == "prod":
+if config('ENV') == "prod":
     ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
     ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
 else:
