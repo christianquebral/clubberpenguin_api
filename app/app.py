@@ -29,8 +29,8 @@ api.add_resource(Purchases, "/store/purchase")
 api.add_resource(StoreItems, "/store")
 
 if config("ENV") == "PROD":
-    ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-    ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
+	ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+	ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
 	app.run(host="0.0.0.0", port=80, debug=False)
 
 else:
