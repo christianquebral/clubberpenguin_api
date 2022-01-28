@@ -41,7 +41,6 @@ class Player(Resource):
 
         result = query.first()
 
-
         if result:
             data = {
                 "player_id": str(result[0]),
@@ -52,7 +51,7 @@ class Player(Resource):
                 "games_played": result[5],
                 "average_game_duration": str(result[6]),
                 "total_game_duration": str(result[7]),
-                "date_joined": str(result[8])
+                "date_joined": str(result[8]),
             }
 
             return {
@@ -72,40 +71,40 @@ class Player(Resource):
 class PlayerInventory(Resource):
     def get(self, player_name):
         query = session.execute(
-            text("SELECT * FROM v_player_inventory WHERE player_name = UPPER(:s)").params(
-                s=player_name
-            )
+            text(
+                "SELECT * FROM v_player_inventory WHERE player_name = UPPER(:s)"
+            ).params(s=player_name)
         )
 
         result = query.first()
 
         if result:
             data = {
-                'player_id': result[0],
-                'player_name': result[1],
-                'remaining_balance': int(result[2]),
-                'inventory': result[3]
+                "player_id": result[0],
+                "player_name": result[1],
+                "remaining_balance": int(result[2]),
+                "inventory": result[3],
             }
 
             return {
-                'success': True,
-                'message': f'Successfully retrieved inventory data for {player_name}',
-                'data': data
-            }, 200 
+                "success": True,
+                "message": f"Successfully retrieved inventory data for {player_name}",
+                "data": data,
+            }, 200
         else:
             return {
                 "success": False,
                 "message": f"Unable to find inventory data for player {player_name}",
                 "data": {},
-            }, 404            
+            }, 404
 
 
 class PlayerInventoryItems(Resource):
     def get(self, player_name):
         query = session.execute(
-            text("SELECT * FROM v_player_inventory_items WHERE player_name = UPPER(:s)").params(
-                s=player_name
-            )
+            text(
+                "SELECT * FROM v_player_inventory_items WHERE player_name = UPPER(:s)"
+            ).params(s=player_name)
         )
 
         result = query.all()
@@ -114,21 +113,21 @@ class PlayerInventoryItems(Resource):
             data = []
             for row in result:
                 record = {
-                    'player_id': row[0],
-                    'player_name': row[1],
-                    'item_name': row[2],
-                    'item_type': row[3]
+                    "player_id": row[0],
+                    "player_name": row[1],
+                    "item_name": row[2],
+                    "item_type": row[3],
                 }
                 data.append(record)
 
             return {
-                'success': True,
-                'message': f'Successfully retrieved inventory data for {player_name}',
-                'data': data
-            }, 200 
+                "success": True,
+                "message": f"Successfully retrieved inventory data for {player_name}",
+                "data": data,
+            }, 200
         else:
             return {
                 "success": False,
                 "message": f"Unable to find inventory data for player {player_name}",
                 "data": {},
-            }, 404            
+            }, 404

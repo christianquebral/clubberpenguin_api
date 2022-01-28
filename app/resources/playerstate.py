@@ -12,7 +12,9 @@ class PlayerStates(Resource):
     def get(self):
         player_name = request.args["playername"].upper()
 
-        query = session.query(PlayerState).filter(PlayerState.player_name == player_name)
+        query = session.query(PlayerState).filter(
+            PlayerState.player_name == player_name
+        )
 
         if query.first():
             result = query.one()

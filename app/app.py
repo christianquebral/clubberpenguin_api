@@ -11,18 +11,18 @@ from resources.storeitem import StoreItems
 from resources.purchase import Purchases
 from custom import Leaderboard, Player, PlayerInventory, PlayerInventoryItems
 
-import ssl  
+import ssl
 
 
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-if config('ENV') == "prod":
+if config("ENV") == "prod":
     ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
     ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
 else:
-	pass
+    pass
 
 api.add_resource(Player, "/player/<string:player_name>")
 api.add_resource(PlayerAuth, "/player/auth")

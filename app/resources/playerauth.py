@@ -16,7 +16,7 @@ class PlayerAuth(Resource):
         player = request.args["playername"].upper()
         password = request.args["password"]
 
-        query = session.query(PlayerDetail).filter_by(player_name=player)           
+        query = session.query(PlayerDetail).filter_by(player_name=player)
 
         result = query.first()
 
@@ -25,9 +25,9 @@ class PlayerAuth(Resource):
                 password, result.password_hash
             ):
                 return {
-                    "success": True,    
+                    "success": True,
                     "message": "Player logged in successfully",
-                    "data": {'player_id':result.id},
+                    "data": {"player_id": result.id},
                 }, 202
             else:
                 return {
@@ -66,4 +66,8 @@ class PlayerAuth(Resource):
 
             session.commit()
 
-            return {"success": True, "message": "Player created", "data": {'player_id':id_result}}, 201
+            return {
+                "success": True,
+                "message": "Player created",
+                "data": {"player_id": id_result},
+            }, 201
