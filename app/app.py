@@ -18,12 +18,6 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-if config("ENV") == "prod":
-    ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-    ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
-else:
-    pass
-
 api.add_resource(Player, "/player/<string:player_name>")
 api.add_resource(PlayerAuth, "/player/auth")
 api.add_resource(PlayerInventory, "/player/<string:player_name>/inventory")
@@ -34,4 +28,10 @@ api.add_resource(Leaderboard, "/leaderboard")
 api.add_resource(Purchases, "/store/purchase")
 api.add_resource(StoreItems, "/store")
 
-app.run(host="0.0.0.0", port=80, debug=True)
+if config("ENV") == "PROD":
+    ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+    ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
+	app.run(host="0.0.0.0", port=80, debug=False)
+
+else:
+	app.run(host="0.0.0.0", port=80, debug=True)
