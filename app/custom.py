@@ -69,5 +69,32 @@ class Player(Resource):
             }, 404
 
 
-# class PlayerInventory(Resource):
-#     def get(self, player_name)
+class PlayerInventory(Resource):
+    def get(self, player_name):
+        query = session.execute(
+            text("SELECT * FROM v_player_inventory WHERE player_name = UPPER(:s)").params(
+                s=player_name
+            )
+        )
+
+        result = query.first()
+
+        if result:
+            data = {
+                'player_id': result[0],
+                'player_name': result[1],
+                'remaining_balance': int(result[2]),
+                'inventory': result[3]
+            }
+
+            return {
+                'success': True,
+                'message': f'Successfully retrieved inventory data for {player_name}',
+                'data': data
+            }, 200 
+        else:
+            return {
+                "success": False,
+                "message": f"Unable to find inventory data for player {player_name}",
+                "data": {},
+            }, 404            
