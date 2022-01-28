@@ -7,7 +7,7 @@ from resources.playerauth import PlayerAuth
 from resources.playerstate import PlayerStates
 from resources.storeitem import StoreItems
 from resources.purchase import Purchases
-from custom import Leaderboard
+from custom import Leaderboard, Player
 
 app = Flask(__name__)
 api = Api(app)
@@ -18,5 +18,6 @@ api.add_resource(StoreItems, "/store")
 api.add_resource(Purchases, "/store/purchase")
 api.add_resource(Leaderboard, "/leaderboard")
 api.add_resource(PlayerStates, "/player/states")
+api.add_resource(Player, "/player/<string:player_name>")
 
 app.run(host="0.0.0.0", port=80, debug=True)

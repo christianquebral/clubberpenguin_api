@@ -47,10 +47,6 @@ class PlayerStates(Resource):
         query = session.query(PlayerState).filter(PlayerState.player_id == player_id)
 
         if query.first():
-            # state = query.one()
-            # query.torso_equipped = torso_equipped
-            # query.head_equipped = head_equipped
-            # query.date_modified = date
             query.update(
                 {
                     "torso_equipped": torso_equipped,
