@@ -11,6 +11,7 @@ from session import session
 
 
 class PlayerAuth(Resource):
+    @require_key
     def get(self):
         player = request.args["playername"].upper()
         password = request.args["password"]

@@ -29,12 +29,12 @@ class StoreItems(Resource):
                 "success": True,
                 "message": f"Successfully retrieved {len(data)} store items",
                 "data": data,
-            }
+            }, 200
         else:
             return {
                 "success": False,
                 "message": "Unable to access store items",
                 "data": {},
-            }
+            }, 404
 
     # no post needed at this time - data will be inserted via DB

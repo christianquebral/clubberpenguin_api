@@ -44,11 +44,11 @@ class Player(Resource):
 
         if result:
             data = {
-                "player_id": result[0],
+                "player_id": str(result[0]),
                 "player_name": result[1],
                 "high_score": result[2],
                 "total_score": str(result[3]),
-                "player_rank": result[4],
+                "player_rank": str(result[4]),
                 "games_played": result[5],
                 "average_game_duration": str(result[6]),
                 "total_game_duration": str(result[7]),
@@ -86,6 +86,40 @@ class PlayerInventory(Resource):
                 'remaining_balance': int(result[2]),
                 'inventory': result[3]
             }
+
+            return {
+                'success': True,
+                'message': f'Successfully retrieved inventory data for {player_name}',
+                'data': data
+            }, 200 
+        else:
+            return {
+                "success": False,
+                "message": f"Unable to find inventory data for player {player_name}",
+                "data": {},
+            }, 404            
+
+
+class PlayerInventoryItems(Resource):
+    def get(self, player_name):
+        query = session.execute(
+            text("SELECT * FROM v_player_inventory_items WHERE player_name = UPPER(:s)").params(
+                s=player_name
+            )
+        )
+
+        result = query.all()
+
+        if result:
+            data = []
+            for row in result:
+                record = {
+                    'player_id': row[0],
+                    'player_name': row[1],
+                    'item_name': row[2],
+                    'item_type': row[3]
+                }
+                data.append(record)
 
             return {
                 'success': True,

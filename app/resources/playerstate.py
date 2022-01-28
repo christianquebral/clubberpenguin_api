@@ -10,9 +10,9 @@ from session import session
 
 class PlayerStates(Resource):
     def get(self):
-        player_id = request.args["playerid"].upper()
+        player_name = request.args["playername"].upper()
 
-        query = session.query(PlayerState).filter(PlayerState.player_id == player_id)
+        query = session.query(PlayerState).filter(PlayerState.player_name == player_name)
 
         if query.first():
             result = query.one()
@@ -33,11 +33,11 @@ class PlayerStates(Resource):
         else:
             return {
                 "success": True,
-                "message": "Player state not found",
+                "message": "Player state not found - is this a new player?",
                 "data": {},
             }, 404
 
-    def put(self):
+    def post(self):
         player_id = request.args["playerid"]
         player_name = request.args["playername"]
         head_equipped = request.args["headequipped"]

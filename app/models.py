@@ -61,7 +61,7 @@ class Purchase(Base):
     __tablename__ = "fact_purchases"
     id = Column(Integer, primary_key=True)
     player_id = Column(Integer, ForeignKey("dim_player_details.id"), nullable=False)
-    item_id = Column(Text, ForeignKey("dim_store_items.id"), nullable=False)
+    item_id = Column(Integer, ForeignKey("dim_store_items.id"), nullable=False)
     created_date = Column(DateTime, nullable=False)
 
     player = relationship("PlayerDetail", back_populates="purchases")

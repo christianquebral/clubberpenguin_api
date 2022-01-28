@@ -9,7 +9,7 @@ from resources.playerauth import PlayerAuth
 from resources.playerstate import PlayerStates
 from resources.storeitem import StoreItems
 from resources.purchase import Purchases
-from custom import Leaderboard, Player, PlayerInventory
+from custom import Leaderboard, Player, PlayerInventory, PlayerInventoryItems
 
 import ssl  
 
@@ -27,6 +27,7 @@ else:
 api.add_resource(Player, "/player/<string:player_name>")
 api.add_resource(PlayerAuth, "/player/auth")
 api.add_resource(PlayerInventory, "/player/<string:player_name>/inventory")
+api.add_resource(PlayerInventoryItems, "/player/<string:player_name>/inventory/items")
 api.add_resource(PlayerStates, "/player/states")
 api.add_resource(Games, "/games")
 api.add_resource(Leaderboard, "/leaderboard")
