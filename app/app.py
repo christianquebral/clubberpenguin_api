@@ -11,12 +11,24 @@ from resources.storeitem import StoreItems
 from resources.purchase import Purchases
 from custom import Leaderboard, Player, PlayerInventory, PlayerInventoryItems
 
+import markdown
+import os
 import ssl
 
 
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
+
+
+@app.route('/')
+def index():
+	with open(
+		os.path.dirname(app.root_path) + '/README.md', 'r'
+	) as readme_file:
+		content = readme_file.read()
+		return markdown.markdown(content)
+
 
 api.add_resource(Player, "/player/<string:player_name>")
 api.add_resource(PlayerAuth, "/player/auth")
