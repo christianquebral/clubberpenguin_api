@@ -21,13 +21,11 @@ CORS(app)
 api = Api(app)
 
 
-@app.route('/')
+@app.route("/")
 def index():
-	with open(
-		os.path.dirname(app.root_path) + '/README.md', 'r'
-	) as readme_file:
-		content = readme_file.read()
-		return markdown.markdown(content)
+    with open(os.path.dirname(app.root_path) + "/README.md", "r") as readme_file:
+        content = readme_file.read()
+        return markdown.markdown(content)
 
 
 api.add_resource(Player, "/player/<string:player_name>")
@@ -41,9 +39,9 @@ api.add_resource(Purchases, "/store/purchase")
 api.add_resource(StoreItems, "/store")
 
 if config("ENV") == "PROD":
-	ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-	ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
-	app.run(host="0.0.0.0", port=80, debug=False, ssl_context=ctx)
+    ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+    ctx.load_cert_chain("./cert/fullchain.pem", "./cert/privkey.pem")
+    app.run(host="0.0.0.0", port=80, debug=False, ssl_context=ctx)
 
 else:
-	app.run(host="0.0.0.0", port=80, debug=True)
+    app.run(host="0.0.0.0", port=80, debug=True)

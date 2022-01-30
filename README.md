@@ -23,7 +23,7 @@ The following definitions will only detail the response in the `data` field.
 Returns a single JSON object with player stats information.  These stats are updated every time a player concludes a game.
 #### Response
 `200 OK` on success
-```
+```JSON
 {
     "player_id": "2",
     "player_name": "ANGRY PENGUIN",
