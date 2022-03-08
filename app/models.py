@@ -15,7 +15,7 @@ Base = declarative_base()
 
 
 class PlayerDetail(Base):
-    __tablename__ = "dim_player_details"
+    __tablename__ = "player_details"
     id = Column(Integer, primary_key=True)
     player_name = Column(Text, nullable=False)
     password_hash = Column(Text, nullable=False)
@@ -26,7 +26,7 @@ class PlayerDetail(Base):
 
 
 class PlayerState(Base):
-    __tablename__ = "dim_player_states"
+    __tablename__ = "player_states"
     id = Column(Integer, primary_key=True)
     player_id = Column(Integer, nullable=False)
     player_name = Column(Text, nullable=False)
@@ -36,7 +36,7 @@ class PlayerState(Base):
 
 
 class StoreItem(Base):
-    __tablename__ = "dim_store_items"
+    __tablename__ = "store_items"
     id = Column(Integer, primary_key=True)
     item_name = Column(Text, nullable=False)
     item_type = Column(Text, nullable=False)
@@ -47,7 +47,7 @@ class StoreItem(Base):
 
 
 class Game(Base):
-    __tablename__ = "fact_games"
+    __tablename__ = "games"
     id = Column(Integer, primary_key=True)
     player_id = Column(Integer, ForeignKey("dim_player_details.id"), nullable=False)
     player_score = Column(Integer, nullable=False)
@@ -58,7 +58,7 @@ class Game(Base):
 
 
 class Purchase(Base):
-    __tablename__ = "fact_purchases"
+    __tablename__ = "purchases"
     id = Column(Integer, primary_key=True)
     player_id = Column(Integer, ForeignKey("dim_player_details.id"), nullable=False)
     item_id = Column(Integer, ForeignKey("dim_store_items.id"), nullable=False)
