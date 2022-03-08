@@ -49,7 +49,7 @@ class StoreItem(Base):
 class Game(Base):
     __tablename__ = "games"
     id = Column(Integer, primary_key=True)
-    player_id = Column(Integer, ForeignKey("dim_player_details.id"), nullable=False)
+    player_id = Column(Integer, ForeignKey("player_details.id"), nullable=False)
     player_score = Column(Integer, nullable=False)
     game_time = Column(Float, nullable=False)
     created_date = Column(DateTime, nullable=False)
@@ -60,8 +60,8 @@ class Game(Base):
 class Purchase(Base):
     __tablename__ = "purchases"
     id = Column(Integer, primary_key=True)
-    player_id = Column(Integer, ForeignKey("dim_player_details.id"), nullable=False)
-    item_id = Column(Integer, ForeignKey("dim_store_items.id"), nullable=False)
+    player_id = Column(Integer, ForeignKey("player_details.id"), nullable=False)
+    item_id = Column(Integer, ForeignKey("store_items.id"), nullable=False)
     created_date = Column(DateTime, nullable=False)
 
     player = relationship("PlayerDetail", back_populates="purchases")
